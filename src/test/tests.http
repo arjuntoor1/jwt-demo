@@ -1,0 +1,19 @@
+###
+GET http://localhost:8080/arj/hello
+Authorization: Basic arj password
+
+###
+GET http://localhost:8080/outpost/commands
+Outpost-Id: the_only_valid_outpost
+Authorization: Bearer {{api_bearer_token}}
+
+###
+POST http://localhost:8080/outpost/auth/token
+Authorization: Basic arj password
+Outpost-Id: the_only_valid_outpost
+
+> {% response.status == 200 && client.global.set("api_bearer_token", response.body.toString()) %}
+
+###
+POST http://localhost:8080/outpost/heartbeat
+Authorization: Bearer {{api_bearer_token}}
